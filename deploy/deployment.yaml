@@ -13,15 +13,17 @@ spec:
     metadata:
       labels:
         app: udagram-frontend
+        api: external
     spec:
       containers:
       - name: udagram-frontend
         image: pinmaing/udagram-frontend
+        resources:
+          requests:
+            memory: "1Gi"
+            cpu: "250m"
+          limits:
+            memory: "2Gi"
+            cpu: "500m"    
         ports:
-        - containerPort: 8100
-        livenessProbe:
-          httpGet:
-            path: /health
-            port: 8100
-          initialDelaySeconds: 3
-          periodSeconds: 3
+        - containerPort: 80
