@@ -1,0 +1,24 @@
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: backend-ingress
+  annotations:
+    kubernetes.io/ingress.class: nginx
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+    nginx.ingress.kubernetes.io/use-regex: "true"
+spec:
+  rules:
+  - host: a00695aedd0854c429f9139d011493eb-207895537.ap-northeast-1.elb.amazonaws.com
+    http:
+      paths:
+      - backend:
+          serviceName: udagram-frontend
+          servicePort: 8100
+        path: /
+  - host: a3a1488b3045443d68915e64c4e939ac-273229140.ap-northeast-1.elb.amazonaws.com
+    http:
+      paths:
+      - backend:
+          serviceName: udagramreverseproxy
+          servicePort: 8080
+        path: /
